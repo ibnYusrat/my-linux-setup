@@ -43,6 +43,13 @@ fi
 apt update;
 apt upgrade;
 
+FILE=./synergy_1.11.0.rc2_amd64.deb
+if [ -f "$FILE" ]; then
+    printf "${YELLOW}Installing Synergy${NC}\n";
+    dpkg -i ./synergy_1.11.0.rc2_amd64.deb;
+    apt-get install -f;
+fi
+
 # Some basic shell utlities
 apt install git -y
 apt install curl -y
