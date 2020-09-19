@@ -31,8 +31,8 @@ REQUIRED_PKG="flatpak"
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' $REQUIRED_PKG|grep "install ok installed")
 echo Checking for $REQUIRED_PKG: $PKG_OK
 if [ "" = "$PKG_OK" ]; then
-	printf "${YELLOW}Flatpak is not installed. Installing..{NC}\n";
-	sleep 1000;
+	printf "${YELLOW}Flatpak is not installed. Installing..${NC}\n";
+	sleep 1;
 	apt update -y
 	apt install flatpak -y
 	apt install gnome-software-plugin-flatpak -y
@@ -46,31 +46,31 @@ apt update;
 FILE=./synergy_1.11.0.rc2_amd64.deb
 if [ -f "$FILE" ]; then
     printf "${YELLOW}Installing Synergy${NC}\n";
-    sleep 1000;
+    sleep 1;
     dpkg -i ./synergy_1.11.0.rc2_amd64.deb;
     apt-get install -fy;
 fi
 
 # Remove thunderbird
 printf "${RED}Removing thunderbird completely${NC}\n";
-sleep 2000;
+sleep 2;
 apt-get purge thunderbird* -y
 
 # Some basic shell utlities
 printf "${YELLOW}Installing git, curl and nfs-common.. ${NC}\n";
-sleep 1000;
+sleep 1;
 apt install git -y
 apt install curl -y
 apt install nfs-common -y
 
 # Enable Nautilus type-head (instead of search):
 printf "${YELLOW}Enabling nautilus typeahead${NC}\n";
-sleep 1000;
+sleep 1;
 add-apt-repository ppa:lubomir-brindza/nautilus-typeahead -y
 
 #Install Node Version Manager
 printf "${YELLOW}Installing Node Version Manager${NC}\n";
-sleep 1000;
+sleep 1;
 run_as_user "wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash"
 run_as_user "source ~/.bashrc"
 run_as_user "nvm ls-remote"
@@ -79,26 +79,26 @@ printf "${GREEN}"
 run_as_user "node -v"
 run_as_user "npm -v"
 printf "${NC}\n"
-sleep 2000;
+sleep 2;
 
 
 #Install NodeJS used modules:
 printf "${YELLOW}Installing @angular/cli:latest${NC}\n";
-sleep 1000;
+sleep 1;
 run_as_user "npm install -g @angular/cli"
 
 printf "${YELLOW}Installing firebase-tools:latest${NC}\n";
-sleep 1000;
+sleep 1;
 run_as_user "npm install -g firebase-tools" 
 
 #Install zerotier-cli
 printf "${YELLOW}Installing zerotier-cli${NC}\n";
-sleep 1000;
+sleep 1;
 curl -s https://install.zerotier.com | bash
 
 #Install Google Chrome
 print "${YELLOW}Installing google-chrome-stable${NC}\n";
-sleep 1000;
+sleep 1;
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 dpkg -i google-chrome-stable_current_amd64.deb
 apt-get install -f
@@ -106,20 +106,20 @@ apt-get install -f
 
 # Change keyboard shortcut for screenshot (CTRL + SHIFT + SUPER + 4 To change cursor and copy selection to clipboard
 printf "${YELLOW}Mapping CTRL + SUPER + R-SHIFT + 4 to capture area of screen to clipboard. ${NC}\n";
-sleep 1000;
+sleep 1;
 GSETTINGS_SCHEMA=org.gnome.settings-daemon.plugins.media-keys
 GSETTINGS_PATH=/org/gnome/settings-daemon/plugins/media-keys/
 SCHEMA_PATH=$GSETTINGS_SCHEMA:$GSETTINGS_PATH
 run_as_user "gsettings set $SCHEMA_PATH area-screenshot-clip '<Primary><Shift><Super>dollar'"
 
 print "${YELLOW}Install prerequisits for Gnome Shell Extentions${NC}\n";
-sleep 1000;
+sleep 1;
 apt install gnome-shell-extensions -y
 apt install chrome-gnome-shell -y
 
 
 printf "${GREEN}Basic settings done, proceeding to install bigger softwares (Like WebStorm, Android Studio etc) using flatpak${NC}\n";
-sleep 2000;
+sleep 2;
 run_as_user "flatpak install webstorm -y";
 run_as_user "flatpak install android-studio -y";
 
