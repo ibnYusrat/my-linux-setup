@@ -41,7 +41,6 @@ if [ "" = "$PKG_OK" ]; then
 fi
 
 apt update;
-apt upgrade -y;
 
 FILE=./synergy_1.11.0.rc2_amd64.deb
 if [ -f "$FILE" ]; then
@@ -109,3 +108,4 @@ run_as_user "flatpak install webstorm -y";
 run_as_user "flatpak install android-studio -y";
 
 
+apt upgrade -y;
