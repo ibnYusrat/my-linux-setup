@@ -92,6 +92,25 @@ printf "${YELLOW}Installing zerotier-cli${NC}\n";
 sleep $delay_after_message;
 curl -s https://install.zerotier.com | bash
 
+# Install lm-sensors
+printf "${YELLOW}Installing lm-sensors${NC}\n";
+sleep $delay_after_message;
+apt install lm-sensors -y
+sensors-detect --auto
+
+
+printf "${YELLOW}Installing gnome-tweak-tool${NC}\n";
+sleep $delay_after_message;
+apt install gnome-tweak-tool -y;
+
+
+printf "${YELLOW}Installing Docker ${NC}\n";
+sleep $delay_after_message;
+apt install docker.io
+systemctl enable --now docker
+usermod -aG docker $target_user;
+
+
 #Install Google Chrome
 print "${YELLOW}Installing google-chrome-stable${NC}\n";
 sleep $delay_after_message;
