@@ -28,6 +28,17 @@ run_as_user() {
 
 # run_as_user "touch test.txt"
 
+SSH_KEYS=./dot.ssh.zip
+if [ -f "$SSH_KEYS" ]; then
+    printf "${YELLOW}Installing SSH Keys${NC}\n";
+    sleep $delay_after_message;
+    run_as_user "rm -rf /home/ibnyusrat/.ssh"
+    run_as_user "unzip ${SSH_KEYS} -d /home/${target_user}/"
+else
+	printf "${RED}Zip file containing SSH Keys (dot.ssh.zip) was not found in the script directory, therefore keys were not installed ${NC}\n";
+	sleep 10;
+fi
+
 REQUIRED_PKG="flatpak"
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' $REQUIRED_PKG|grep "install ok installed")
 echo Checking for $REQUIRED_PKG: $PKG_OK
@@ -44,13 +55,15 @@ fi
 
 apt update;
 
-FILE=./synergy_1.11.0.rc2_amd64.deb
-if [ -f "$FILE" ]; then
+SYNERGY_DEB=./synergy_1.11.0.rc2_amd64.deb
+if [ -f "$SYNERGY_DEB" ]; then
     printf "${YELLOW}Installing Synergy${NC}\n";
     sleep $delay_after_message;
-    dpkg -i ./synergy_1.11.0.rc2_amd64.deb;
+    dpkg -i ./$SYNERGY_DEB;
     apt-get install -fy;
 fi
+
+
 
 # Remove thunderbird
 printf "${RED}Removing thunderbird completely${NC}\n";
@@ -73,27 +86,6 @@ add-apt-repository ppa:lubomir-brindza/nautilus-typeahead -y
 printf "${YELLOW}Installing Node Version Manager${NC}\n";
 sleep $delay_after_message;
 run_as_user "wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash";
-run_as_user 'export NVM_DIR="$HOME/.nvm"';
-run_as_user '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"';
-run_as_user '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"';
-run_as_user "nvm ls-remote";
-run_as_user "nvm install --lts";
-printf "${GREEN}node -v: ";
-run_as_user "node -v"
-echo "\nnpm -v: "
-run_as_user "npm -v"
-printf "${NC}\n"
-sleep $delay_after_message;
-
-
-#Install NodeJS used modules:
-printf "${YELLOW}Installing @angular/cli:latest${NC}\n";
-sleep $delay_after_message;
-run_as_user "npm install -g @angular/cli"
-
-printf "${YELLOW}Installing firebase-tools:latest${NC}\n";
-sleep $delay_after_message;
-run_as_user "npm install -g firebase-tools" 
 
 #Install zerotier-cli
 printf "${YELLOW}Installing zerotier-cli${NC}\n";
@@ -106,15 +98,8 @@ sleep $delay_after_message;
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 dpkg -i google-chrome-stable_current_amd64.deb
 apt-get install -f
+unlink google-chrome-stable_current_amd64.deb
 
-
-# Change keyboard shortcut for screenshot (CTRL + SHIFT + SUPER + 4 To change cursor and copy selection to clipboard
-printf "${YELLOW}Mapping CTRL + SUPER + R-SHIFT + 4 to capture area of screen to clipboard. ${NC}\n";
-sleep $delay_after_message;
-GSETTINGS_SCHEMA=org.gnome.settings-daemon.plugins.media-keys/
-GSETTINGS_PATH=/org/gnome/settings-daemon/plugins/media-keys/
-SCHEMA_PATH=$GSETTINGS_SCHEMA:$GSETTINGS_PATH
-run_as_user "gsettings set $SCHEMA_PATH area-screenshot-clip '<Primary><Shift><Super>dollar'"
 
 printf "${YELLOW}Install prerequisits for Gnome Shell Extentions${NC}\n";
 sleep $delay_after_message;
