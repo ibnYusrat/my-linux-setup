@@ -53,7 +53,7 @@ fi
 # Some basic shell utlities
 apt install git -y
 apt install curl -y
-
+apt install nfs-common -y
 
 # Enable Nautilus type-head (instead of search):
 printf "${YELLOW}Enabling nautilus typeahead${NC}\n";
