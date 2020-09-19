@@ -50,6 +50,9 @@ if [ -f "$FILE" ]; then
     apt-get install -f;
 fi
 
+# Remove thunderbird
+apt-get purge thunderbird* -y
+
 # Some basic shell utlities
 apt install git -y
 apt install curl -y
