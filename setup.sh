@@ -35,7 +35,7 @@ if [ "" = "$PKG_OK" ]; then
 	apt update -y
 	apt install flatpak -y
 	apt install gnome-software-plugin-flatpak -y
-	run_as_user "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo" 
+	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 	printf "${GREEN}flatpak was installed, but requires a restart. ${NC}Please reboot your computer and run this script again to proceed.\n"
 	exit 1;
 fi
