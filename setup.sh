@@ -46,7 +46,7 @@ FILE=./synergy_1.11.0.rc2_amd64.deb
 if [ -f "$FILE" ]; then
     printf "${YELLOW}Installing Synergy${NC}\n";
     dpkg -i ./synergy_1.11.0.rc2_amd64.deb;
-    apt-get install -f;
+    apt-get install -fy;
 fi
 
 # Remove thunderbird
@@ -60,7 +60,6 @@ apt install nfs-common -y
 # Enable Nautilus type-head (instead of search):
 printf "${YELLOW}Enabling nautilus typeahead${NC}\n";
 add-apt-repository ppa:lubomir-brindza/nautilus-typeahead -y
-apt dist-upgrade
 
 #Install Node Version Manager
 printf "${YELLOW}Installing Node Version Manager${NC}\n";
@@ -108,4 +107,4 @@ run_as_user "flatpak install webstorm -y";
 run_as_user "flatpak install android-studio -y";
 
 
-apt upgrade -y;
+apt dist-upgrade -y;
