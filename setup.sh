@@ -73,8 +73,9 @@ add-apt-repository ppa:lubomir-brindza/nautilus-typeahead -y
 printf "${YELLOW}Installing Node Version Manager${NC}\n";
 sleep $delay_after_message;
 run_as_user "wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash";
-source /home/$target_user/.bashrc;
-run_as_user "source /home/${target_user}/.bashrc";
+run_as_user 'export NVM_DIR="$HOME/.nvm"';
+run_as_user '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"';
+run_as_user '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"';
 run_as_user "nvm ls-remote";
 run_as_user "nvm install --lts";
 printf "${GREEN}node -v: ";
