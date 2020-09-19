@@ -36,12 +36,12 @@ if [ "" = "$PKG_OK" ]; then
 	apt install flatpak -y
 	apt install gnome-software-plugin-flatpak -y
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-	printf "${GREEN}flatpak was installed, but requires a restart. ${NC}Please reboot your computer and run this script again to proceed.\n"
+	printf "${GREEN}flatpak was installed, but requires a restart. ${NC}\nPlease reboot your computer and run this script again to proceed.\n"
 	exit 1;
 fi
 
 apt update;
-apt upgrade;
+apt upgrade -y;
 
 FILE=./synergy_1.11.0.rc2_amd64.deb
 if [ -f "$FILE" ]; then
