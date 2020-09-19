@@ -31,7 +31,7 @@ REQUIRED_PKG="flatpak"
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' $REQUIRED_PKG|grep "install ok installed")
 echo Checking for $REQUIRED_PKG: $PKG_OK
 if [ "" = "$PKG_OK" ]; then
-	echo "${YELLOW}Flatpak is not installed. Installing..{NC}\n"
+	printf "${YELLOW}Flatpak is not installed. Installing..{NC}\n";
 	sleep 1000;
 	apt update -y
 	apt install flatpak -y
