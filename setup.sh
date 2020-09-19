@@ -1,6 +1,12 @@
 #!/bin/bash
+
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+
 if [[ $EUID -ne 0 ]]; then
-	echo "This script must be run in interactive-root mode (sudo -i)" 
+	echo "This script must be run with sudo (sudo -i)" 
    exit 1
 fi
 
@@ -13,8 +19,83 @@ else
     exit 1;
 fi
 
-#apt update;
-#apt upgrade;
 
-#apt install flatpak
-#apt install gnome-software-plugin-flatpak
+# function to run command as non-root user
+run_as_user() {
+	sudo -u $target_user bash -c "$1";
+}
+
+# run_as_user "touch test.txt"
+
+REQUIRED_PKG="flatpak"
+PKG_OK=$(dpkg-query -W --showformat='${Status}\n' $REQUIRED_PKG|grep "install ok installed")
+echo Checking for $REQUIRED_PKG: $PKG_OK
+if [ "" = "$PKG_OK" ]; then
+	echo "Flatpak is not installed. Installing.."
+	apt update -y
+	apt install flatpak -y
+	apt install gnome-software-plugin-flatpak -y
+	run_as_user "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo" 
+	printf "${GREEN}flatpak was installed, but requires a restart. ${NC}Please reboot your computer and run this script again to proceed.\n"
+	exit 1;
+fi
+
+apt update;
+apt upgrade;
+
+# Some basic shell utlities
+apt install git -y
+apt install curl -y
+
+
+# Enable Nautilus type-head (instead of search):
+printf "${YELLOW}Enabling nautilus typeahead${NC}\n";
+add-apt-repository ppa:lubomir-brindza/nautilus-typeahead -y
+apt dist-upgrade
+
+#Install Node Version Manager
+printf "${YELLOW}Installing Node Version Manager${NC}\n";
+run_as_user "wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash"
+run_as_user "source ~/.bashrc"
+run_as_user "nvm ls-remote"
+run_as_user "nvm install --lts"
+printf "${GREEN}"
+run_as_user "node -v"
+run_as_user "npm -v"
+printf "${NC}\n"
+
+
+#Install NodeJS used modules:
+printf "${YELLOW}Installing @angular/cli:latest${NC}\n";
+run_as_user "npm install -g @angular/cli"
+
+printf "${YELLOW}Installing firebase-tools:latest${NC}\n";
+run_as_user "npm install -g firebase-tools" 
+
+#Install zerotier-cli
+printf "${YELLOW}Installing zerotier-cli${NC}\n";
+curl -s https://install.zerotier.com | bash
+
+#Install Google Chrome
+print "${YELLOW}Installing google-chrome-stable${NC}\n";
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+dpkg -i google-chrome-stable_current_amd64.deb
+apt-get install -f
+
+
+# Change keyboard shortcut for screenshot (CTRL + SHIFT + SUPER + 4 To change cursor and copy selection to clipboard
+GSETTINGS_SCHEMA=org.gnome.settings-daemon.plugins.media-keys
+GSETTINGS_PATH=/org/gnome/settings-daemon/plugins/media-keys/
+SCHEMA_PATH=$GSETTINGS_SCHEMA:$GSETTINGS_PATH
+run_as_user "gsettings set $SCHEMA_PATH area-screenshot-clip '<Primary><Shift><Super>dollar'"
+
+print "${YELLOW}Install prerequisits for Gnome Shell Extentions${NC}\n";
+apt install gnome-shell-extensions -y
+apt install chrome-gnome-shell -y
+
+
+printf "${GREEN}Basic settings done, proceeding to install bigger softwares (Like WebStorm, Android Studio etc) using flatpak${NC}\n";
+run_as_user "flatpak install webstorm -y";
+run_as_user "flatpak install android-studio -y";
+
+
