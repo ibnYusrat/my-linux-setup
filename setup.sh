@@ -36,9 +36,9 @@ if [ -f "$SSH_KEYS" ]; then
     run_as_user "unzip ${SSH_KEYS} -d /home/${target_user}/"
     apt install sshuttle
     run_as_user "echo 'sshuttle_vpn() {' >> /home/${target_user}/.bashrc";
-    run_as_user "echo '	savedHostname=\'user@host\';' >> /home/${target_user}/.bashrc";
-    run_as_user "echo '	hostname=$(echo $savedHostname | grep -oP \'(?<=@).*\')' >> /home/${target_user}/.bashrc";
-    run_as_user "echo '	sshuttle --dns --verbose --remote $savedHostname --exclude $hostname 0/0' >> /home/${target_user}/.bashrc";
+    run_as_user "echo '	remoteUsername='user';' >> /home/${target_user}/.bashrc";
+    run_as_user "echo '	remoteHostname='hostname.com';' >> /home/${target_user}/.bashrc";
+    run_as_user "echo '	sshuttle --dns --verbose --remote \$remoteUsername@\$remoteHostname --exclude \$remoteHostname 0/0' >> /home/${target_user}/.bashrc";
     run_as_user "echo '}' >> /home/${target_user}/.bashrc";
 else
 	printf "${RED}Zip file containing SSH Keys (dot.ssh.zip) was not found in the script directory, therefore keys were not installed ${NC}\n";
