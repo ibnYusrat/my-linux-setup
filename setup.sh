@@ -144,8 +144,9 @@ apt install chrome-gnome-shell -y
 
 printf "${GREEN}Basic settings done, proceeding to install bigger softwares (Like WebStorm, Android Studio etc) using flatpak${NC}\n";
 sleep $delay_after_message;
-# run_as_user "flatpak install webstorm -y";
-# run_as_user "flatpak install androidstudio -y";
+
+run_as_user "flatpak install webstorm -y";
+run_as_user "flatpak install androidstudio -y";
 
 
-# apt dist-upgrade -y;
+apt dist-upgrade -y;
