@@ -92,18 +92,28 @@ printf "${YELLOW}Installing zerotier-cli${NC}\n";
 sleep $delay_after_message;
 curl -s https://install.zerotier.com | bash
 
-# Install lm-sensors
+#Install VIM
+printf "${YELLOW}Installing VIM${NC}\n";
+sleep $delay_after_message;
+apt install vim
+
+#Install GIMP
+printf "${YELLOW}Installing GIMP${NC}\n";
+sleep $delay_after_message;
+flatpak install org.gimp.GIMP -y
+
+#lm-sensors
 printf "${YELLOW}Installing lm-sensors${NC}\n";
 sleep $delay_after_message;
 apt install lm-sensors -y
 sensors-detect --auto
 
-
+# Gnome tweak tool
 printf "${YELLOW}Installing gnome-tweak-tool${NC}\n";
 sleep $delay_after_message;
 apt install gnome-tweak-tool -y;
 
-
+#Docker
 printf "${YELLOW}Installing Docker ${NC}\n";
 sleep $delay_after_message;
 apt install docker.io
