@@ -34,6 +34,12 @@ if [ -f "$SSH_KEYS" ]; then
     sleep $delay_after_message;
     run_as_user "rm -rf /home/ibnyusrat/.ssh"
     run_as_user "unzip ${SSH_KEYS} -d /home/${target_user}/"
+    apt install sshuttle
+    run_as_user "echo 'sshuttle_vpn() {' >> /home/${target_user}/.bashrc";
+    run_as_user "echo '	savedHostname=\'user@host\';' >> /home/${target_user}/.bashrc";
+    run_as_user "echo '	hostname=$(echo $savedHostname | grep -oP \'(?<=@).*\')' >> /home/${target_user}/.bashrc";
+    run_as_user "echo '	sshuttle --dns --verbose --remote $savedHostname --exclude $hostname 0/0' >> /home/${target_user}/.bashrc";
+    run_as_user "echo '}' >> /home/${target_user}/.bashrc";
 else
 	printf "${RED}Zip file containing SSH Keys (dot.ssh.zip) was not found in the script directory, therefore keys were not installed ${NC}\n";
 	sleep 10;
