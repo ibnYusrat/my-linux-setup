@@ -83,6 +83,10 @@ apt install git -y
 apt install curl -y
 apt install nfs-common -y
 
+printf "${YELLOW}Installing stacer.. ${NC}\n";
+sleep $delay_after_message;
+apt install stacer
+
 # Enable Nautilus type-head (instead of search):
 printf "${YELLOW}Enabling nautilus typeahead${NC}\n";
 sleep $delay_after_message;
