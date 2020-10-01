@@ -134,7 +134,7 @@ usermod -aG docker $target_user;
 #Install Chromium
 print "${YELLOW}Installing chromium-browser${NC}\n";
 sleep $delay_after_message;
-ap install chromium-browser -y
+apt install chromium-browser -y
 #wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 #dpkg -i google-chrome-stable_current_amd64.deb
 #apt-get install -f
