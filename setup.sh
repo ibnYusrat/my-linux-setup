@@ -131,13 +131,14 @@ systemctl enable --now docker
 usermod -aG docker $target_user;
 
 
-#Install Google Chrome
-print "${YELLOW}Installing google-chrome-stable${NC}\n";
+#Install Chromium
+print "${YELLOW}Installing chromium-browser${NC}\n";
 sleep $delay_after_message;
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-dpkg -i google-chrome-stable_current_amd64.deb
-apt-get install -f
-unlink google-chrome-stable_current_amd64.deb
+ap install chromium-browser -y
+#wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+#dpkg -i google-chrome-stable_current_amd64.deb
+#apt-get install -f
+#unlink google-chrome-stable_current_amd64.deb
 
 
 printf "${YELLOW}Install prerequisits for Gnome Shell Extentions${NC}\n";
