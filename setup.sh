@@ -34,7 +34,7 @@ if [ -f "$SSH_KEYS" ]; then
     sleep $delay_after_message;
     run_as_user "rm -rf /home/ibnyusrat/.ssh"
     run_as_user "unzip ${SSH_KEYS} -d /home/${target_user}/"
-    apt install sshuttle
+    apt install sshuttle -y
     run_as_user "echo 'sshuttle_vpn() {' >> /home/${target_user}/.bashrc";
     run_as_user "echo '	remoteUsername='user';' >> /home/${target_user}/.bashrc";
     run_as_user "echo '	remoteHostname='hostname.com';' >> /home/${target_user}/.bashrc";
@@ -85,7 +85,7 @@ apt install nfs-common -y
 
 printf "${YELLOW}Installing stacer.. ${NC}\n";
 sleep $delay_after_message;
-apt install stacer
+apt install stacer -y
 
 # Enable Nautilus type-head (instead of search):
 printf "${YELLOW}Enabling nautilus typeahead${NC}\n";
@@ -105,12 +105,12 @@ curl -s https://install.zerotier.com | bash
 #Install VIM
 printf "${YELLOW}Installing VIM${NC}\n";
 sleep $delay_after_message;
-apt install vim
+apt install vim -y
 
 #Install GIMP
 printf "${YELLOW}Installing GIMP${NC}\n";
 sleep $delay_after_message;
-flatpak install org.gimp.GIMP -y
+run_as_user "flatpak install org.gimp.GIMP -y"
 
 #lm-sensors
 printf "${YELLOW}Installing lm-sensors${NC}\n";
@@ -126,7 +126,7 @@ apt install gnome-tweak-tool -y;
 #Docker
 printf "${YELLOW}Installing Docker ${NC}\n";
 sleep $delay_after_message;
-apt install docker.io
+apt install docker.io -y
 systemctl enable --now docker
 usermod -aG docker $target_user;
 
