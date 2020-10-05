@@ -130,6 +130,12 @@ apt install docker.io -y
 systemctl enable --now docker
 usermod -aG docker $target_user;
 
+#Install Open-SSH Server
+printf "${YELLOW}Installing Docker ${NC}\n";
+sleep $delay_after_message;
+apt install openssh-server -y
+systemctl enable ssh
+systemctl start ssh
 
 #Install Chromium
 print "${YELLOW}Installing chromium-browser${NC}\n";
