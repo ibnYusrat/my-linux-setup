@@ -1,6 +1,6 @@
 # My automatic setup script for Linux (Debian based distros with gnome)
 
-I run this script on a fresh install of Linux, so that it sets everything up for me.
+I run this script on a fresh install of Linux, (Mostly Debian based distributions like Ubuntu or Pop!_OS etc) so that it sets everything up for me and I am ready to work..
 
 When executed, it installs: 
 
