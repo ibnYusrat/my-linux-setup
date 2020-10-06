@@ -1,9 +1,12 @@
 #!/bin/bash
 
-RED='\033[0;31m'
-NC='\033[0m' # No Color
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
+RED='\033[0;31m';
+NC='\033[0m'; # No Color
+GREEN='\033[0;32m';
+YELLOW='\033[1;33m';
+
+CWD=`pwd`;
+
 delay_after_message=3;
 
 if [[ $EUID -ne 0 ]]; then
@@ -141,10 +144,21 @@ systemctl start ssh
 print "${YELLOW}Installing chromium-browser${NC}\n";
 sleep $delay_after_message;
 apt install chromium-browser -y
-#wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-#dpkg -i google-chrome-stable_current_amd64.deb
-#apt-get install -f
-#unlink google-chrome-stable_current_amd64.deb
+
+#Change Theme to WhiteSur Dark
+#Install Chromium
+print "${YELLOW}Installing WhiteSur-dark theme${NC}\n";
+sleep $delay_after_message;
+run_as_user "mv white-sur-wallpaper.png ~/Pictures";
+run_as_user "gsettings set org.gnome.desktop.background picture-uri file:////home/${target_user}/Pictures/white-sur-wallpaper.jpg";
+run_as_user "unzip WhiteSur-dark.zip -d /home/${target_user}/.themes/";
+run_as_user "unzip WhiteSur-icons.zip -d /home/${target_user}/.icons/";
+run_as_user "gsettings set org.gnome.desktop.interface gtk-theme 'WhiteSur-dark'";
+run_as_user "gsettings set org.gnome.desktop.interface icon-theme 'WhiteSur'";
+print "${YELLOW}WhiteSur was installed, but for better results, download the User Themes gnome extension and use the tweak tool to change shell theme to WhiteSur as well.${NC}\n";
+sleep $delay_after_message;
+
+
 
 
 printf "${YELLOW}Install prerequisits for Gnome Shell Extentions${NC}\n";
