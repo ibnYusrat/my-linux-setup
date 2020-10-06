@@ -10,6 +10,7 @@ When executed, it installs:
 * *Completely removes thunderbird*
 * git, curl, nfs-common (used for network attached storage).
 * nautilus (with typeahead support)
+* openssh-server
 * nvm (node version manager)
 * zerotier-cli 
 * vim
@@ -17,10 +18,11 @@ When executed, it installs:
 * lm-sensors
 * gnome-tweak-tool
 * docker
-* google-chrome-stable
+* Chromium Browser
 * prerequisites of Gnome shell extensions
-* webstorm (using flatpak)
-* androidstudio (using flatpak)
+* WebStorm (using flatpak)
+* Android Studio (using flatpak)
+* WhiteSur GTK+Icon theme.
 
 And finally upgrades all the packages in the system to the latest versions.
 
