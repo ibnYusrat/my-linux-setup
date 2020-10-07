@@ -27,3 +27,5 @@ When executed, it installs:
 And finally upgrades all the packages in the system to the latest versions.
 
 Of course this exact list of softwares isn't probably what fit your needs, but you can fork this repo and use it as a template to adjust based on your own needs.
+
+Simply type `sudo -i` enter your password. And then run `./script.sh`
