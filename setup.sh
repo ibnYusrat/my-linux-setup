@@ -145,16 +145,22 @@ print "${YELLOW}Installing chromium-browser${NC}\n";
 sleep $delay_after_message;
 apt install chromium-browser -y
 
+
+#Install Alacritty
+print "${YELLOW}Installing Alacritty (terminal)${NC}\n";
+sleep $delay_after_message;
+apt install alacritty -y
+run_as_user "mkdir -p ~/.config/alacritty && cp alacritty.yml ~/.config/alacritty/";
+
 #Change Theme to WhiteSur Dark
 #Install Chromium
 print "${YELLOW}Installing WhiteSur-dark theme${NC}\n";
 sleep $delay_after_message;
-run_as_user "mv white-sur-wallpaper.png ~/Pictures";
+run_as_user "cp white-sur-wallpaper.png ~/Pictures";
 run_as_user "gsettings set org.gnome.desktop.background picture-uri file:////home/${target_user}/Pictures/white-sur-wallpaper.jpg";
 run_as_user "unzip WhiteSur-dark.zip -d /home/${target_user}/.themes/";
 run_as_user "unzip WhiteSur-icons.zip -d /home/${target_user}/.icons/";
 run_as_user "gsettings set org.gnome.desktop.interface gtk-theme 'WhiteSur-dark'";
-run_as_user "gsettings set org.gnome.desktop.interface icon-theme 'WhiteSur'";
 print "${YELLOW}WhiteSur was installed, but for better results, download the User Themes gnome extension and use the tweak tool to change shell theme to WhiteSur as well.${NC}\n";
 sleep $delay_after_message;
 
