@@ -1,6 +1,6 @@
-# My automatic setup script for Linux (Debian based distros with gnome)
+# Automatic setup script for Linux (Debian based distros with gnome)
 
-I run this script on a fresh install of Linux, so that it sets everything up for me.
+I run this script on a fresh install of Linux, (Mostly Debian based distributions like Ubuntu or Pop!_OS etc) so that it sets everything up for me and I am ready to work..
 
 When executed, it installs: 
 
@@ -10,6 +10,7 @@ When executed, it installs:
 * *Completely removes thunderbird*
 * git, curl, nfs-common (used for network attached storage).
 * nautilus (with typeahead support)
+* openssh-server
 * nvm (node version manager)
 * zerotier-cli 
 * vim
@@ -17,11 +18,14 @@ When executed, it installs:
 * lm-sensors
 * gnome-tweak-tool
 * docker
-* google-chrome-stable
+* Chromium Browser
 * prerequisites of Gnome shell extensions
-* webstorm (using flatpak)
-* androidstudio (using flatpak)
+* WebStorm (using flatpak)
+* Android Studio (using flatpak)
+* WhiteSur GTK+Icon theme.
 
 And finally upgrades all the packages in the system to the latest versions.
 
 Of course this exact list of softwares isn't probably what fit your needs, but you can fork this repo and use it as a template to adjust based on your own needs.
+
+Simply type `sudo -i` enter your password. And then run `./script.sh`
