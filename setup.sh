@@ -29,6 +29,7 @@ run_as_user() {
 	sudo -u $target_user bash -c "$1";
 }
 
+
 # run_as_user "touch test.txt"
 
 SSH_KEYS=./dot.ssh.zip
@@ -36,13 +37,14 @@ if [ -f "$SSH_KEYS" ]; then
     printf "${YELLOW}Installing SSH Keys${NC}\n";
     sleep $delay_after_message;
     run_as_user "rm -rf /home/ibnyusrat/.ssh"
+    run_as_user "touch /home/${target_user}/.zshrc";
     run_as_user "unzip ${SSH_KEYS} -d /home/${target_user}/"
     apt install sshuttle -y
-    run_as_user "echo 'sshuttle_vpn() {' >> /home/${target_user}/.bashrc";
-    run_as_user "echo '	remoteUsername='user';' >> /home/${target_user}/.bashrc";
-    run_as_user "echo '	remoteHostname='hostname.com';' >> /home/${target_user}/.bashrc";
-    run_as_user "echo '	sshuttle --dns --verbose --remote \$remoteUsername@\$remoteHostname --exclude \$remoteHostname 0/0' >> /home/${target_user}/.bashrc";
-    run_as_user "echo '}' >> /home/${target_user}/.bashrc";
+    run_as_user "echo 'sshuttle_vpn() {' >> /home/${target_user}/.zshrc";
+    run_as_user "echo '	remoteUsername='user';' >> /home/${target_user}/.zshrc";
+    run_as_user "echo '	remoteHostname='hostname.com';' >> /home/${target_user}/.zshrc";
+    run_as_user "echo '	sshuttle --dns --verbose --remote \$remoteUsername@\$remoteHostname --exclude \$remoteHostname 0/0' >> /home/${target_user}/.zshrc";
+    run_as_user "echo '}' >> /home/${target_user}/.zshrc";
 else
 	printf "${RED}Zip file containing SSH Keys (dot.ssh.zip) was not found in the script directory, therefore keys were not installed ${NC}\n";
 	sleep 10;
@@ -63,6 +65,14 @@ if [ "" = "$PKG_OK" ]; then
 fi
 
 apt update;
+
+
+#Install Z Shell
+print "${YELLOW}Installing ZSH (Shell)${NC}\n";
+sleep $delay_after_message;
+apt install zsh -y
+chsh -s /bin/zsh
+
 
 SYNERGY_DEB=./synergy_1.11.0.rc2_amd64.deb
 if [ -f "$SYNERGY_DEB" ]; then
@@ -98,12 +108,17 @@ add-apt-repository ppa:lubomir-brindza/nautilus-typeahead -y
 #Install Node Version Manager
 printf "${YELLOW}Installing Node Version Manager${NC}\n";
 sleep $delay_after_message;
-run_as_user "wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash";
+run_as_user "wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | zsh";
+run_as_user "source /home/${target_user}/.zshrc";
+
+printf "${YELLOW}Installing Latest LTS Version of NodeJS${NC}\n";
+sleep $delay_after_message;
+run_as_user "nvm install --lts";
 
 #Install zerotier-cli
 printf "${YELLOW}Installing zerotier-cli${NC}\n";
 sleep $delay_after_message;
-curl -s https://install.zerotier.com | bash
+curl -s https://install.zerotier.com | zsh
 
 #Install VIM
 printf "${YELLOW}Installing VIM${NC}\n";
@@ -152,8 +167,9 @@ sleep $delay_after_message;
 apt install alacritty -y
 run_as_user "mkdir -p ~/.config/alacritty && cp alacritty.yml ~/.config/alacritty/";
 
+
+
 #Change Theme to WhiteSur Dark
-#Install Chromium
 print "${YELLOW}Installing WhiteSur-dark theme${NC}\n";
 sleep $delay_after_message;
 run_as_user "cp white-sur-wallpaper.png ~/Pictures";
