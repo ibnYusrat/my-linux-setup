@@ -175,7 +175,7 @@ sleep $delay_after_message;
 run_as_user "cp white-sur-wallpaper.png ~/Pictures";
 run_as_user "gsettings set org.gnome.desktop.background picture-uri file:////home/${target_user}/Pictures/white-sur-wallpaper.jpg";
 run_as_user "unzip WhiteSur-dark.zip -d /home/${target_user}/.themes/";
-run_as_user "unzip WhiteSur-icons.zip -d /home/${target_user}/.icons/";
+run_as_user "unzip WhiteSur-icons-patched.zip -d /home/${target_user}/.icons/";
 run_as_user "gsettings set org.gnome.desktop.interface gtk-theme 'WhiteSur-dark'";
 print "${YELLOW}WhiteSur was installed, but for better results, download the User Themes gnome extension and use the tweak tool to change shell theme to WhiteSur as well.${NC}\n";
 sleep $delay_after_message;
