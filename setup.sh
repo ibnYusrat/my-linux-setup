@@ -109,11 +109,10 @@ add-apt-repository ppa:lubomir-brindza/nautilus-typeahead -y
 printf "${YELLOW}Installing Node Version Manager${NC}\n";
 sleep $delay_after_message;
 run_as_user "wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | zsh";
-run_as_user "source /home/${target_user}/.zshrc";
 
 printf "${YELLOW}Installing Latest LTS Version of NodeJS${NC}\n";
 sleep $delay_after_message;
-run_as_user "nvm install --lts";
+run_as_user "source /home/${target_user}/.zshrc && nvm install --lts";
 
 #Install zerotier-cli
 printf "${YELLOW}Installing zerotier-cli${NC}\n";
