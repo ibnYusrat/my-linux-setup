@@ -68,7 +68,7 @@ apt update;
 
 
 #Install Z Shell
-print "${YELLOW}Installing ZSH (Shell)${NC}\n";
+printf "${YELLOW}Installing ZSH (Shell)${NC}\n";
 sleep $delay_after_message;
 apt install zsh -y
 chsh -s /bin/zsh
@@ -148,20 +148,20 @@ systemctl enable --now docker
 usermod -aG docker $target_user;
 
 #Install Open-SSH Server
-printf "${YELLOW}Installing Docker ${NC}\n";
+printf "${YELLOW}Installing OpenSSH Server ${NC}\n";
 sleep $delay_after_message;
 apt install openssh-server -y
 systemctl enable ssh
 systemctl start ssh
 
 #Install Chromium
-print "${YELLOW}Installing chromium-browser${NC}\n";
+printf "${YELLOW}Installing chromium-browser${NC}\n";
 sleep $delay_after_message;
 apt install chromium-browser -y
 
 
 #Install Alacritty
-print "${YELLOW}Installing Alacritty (terminal)${NC}\n";
+printf "${YELLOW}Installing Alacritty (terminal)${NC}\n";
 sleep $delay_after_message;
 apt install alacritty -y
 run_as_user "mkdir -p ~/.config/alacritty && cp alacritty.yml ~/.config/alacritty/";
@@ -169,14 +169,14 @@ run_as_user "mkdir -p ~/.config/alacritty && cp alacritty.yml ~/.config/alacritt
 
 
 #Change Theme to WhiteSur Dark
-print "${YELLOW}Installing WhiteSur-dark theme${NC}\n";
+printf "${YELLOW}Installing WhiteSur-dark theme${NC}\n";
 sleep $delay_after_message;
 run_as_user "cp white-sur-wallpaper.png ~/Pictures";
 run_as_user "gsettings set org.gnome.desktop.background picture-uri file:////home/${target_user}/Pictures/white-sur-wallpaper.jpg";
 run_as_user "unzip WhiteSur-dark.zip -d /home/${target_user}/.themes/";
 run_as_user "unzip WhiteSur-icons-patched.zip -d /home/${target_user}/.icons/";
 run_as_user "gsettings set org.gnome.desktop.interface gtk-theme 'WhiteSur-dark'";
-print "${YELLOW}WhiteSur was installed, but for better results, download the User Themes gnome extension and use the tweak tool to change shell theme to WhiteSur as well.${NC}\n";
+printf "${YELLOW}WhiteSur was installed, but for better results, download the User Themes gnome extension and use the tweak tool to change shell theme to WhiteSur as well.${NC}\n";
 sleep $delay_after_message;
 
 
