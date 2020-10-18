@@ -31,7 +31,7 @@ background_opacity: 0.9
 
 font:
   normal:
-    family: "Fira Mono"
+    family: "DejaVu Sans Mono for Powerline"
     style: Regular
   bold:
     family: "Fira Mono"
