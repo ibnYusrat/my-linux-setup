@@ -78,7 +78,7 @@ chsh -s /bin/zsh
 printf "${YELLOW}Installing and Setting up Powerline and Powerline Fonts${NC}\n";
 apt-get install powerline -y
 run_as_user "mkdir -p /home/${target_user}/.fonts";
-run_as_user "cp DejaVu\ Sans\ Mono\ for\ Powerline.ttf /home/${target_user}/.fonts/";
+run_as_user "cp powerline-fonts/* /home/${target_user}/.fonts/";
 
 run_as_user "git clone https://github.com/robbyrussell/oh-my-zsh.git /home/${target_user}/.oh-my-zsh";
 run_as_user "cat /home/${target_user}/.oh-my-zsh/templates/zshrc.zsh-template >> /home/${target_user}/.zshrc";
