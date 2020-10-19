@@ -71,6 +71,7 @@ apt update;
 printf "${YELLOW}Installing ZSH (Shell)${NC}\n";
 sleep $delay_after_message;
 apt install zsh -y
+sleep 2;
 chsh -s /bin/zsh
 
 
@@ -80,11 +81,10 @@ apt-get install powerline -y
 run_as_user "mkdir -p /home/${target_user}/.fonts";
 run_as_user "cp powerline-fonts/* /home/${target_user}/.fonts/";
 
-run_as_user "git clone https://github.com/robbyrussell/oh-my-zsh.git /home/${target_user}/.oh-my-zsh";
+run_as_user "git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git /home/${target_user}/.oh-my-zsh";
 run_as_user "cat /home/${target_user}/.oh-my-zsh/templates/zshrc.zsh-template >> /home/${target_user}/.zshrc";
-run_as_user "git clone https://github.com/bhilburn/powerlevel9k.git /home/${target_user}/.oh-my-zsh/custom/themes/powerlevel9k";
-run_as_user "sed -i 's/robbyrussell/powerlevel9k\/powerlevel9k/' /home/${target_user}/.zshrc";
-run_as_user "cat powerline-template.txt >> /home/${target_user}/.zshrc";
+run_as_user "git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /home/${target_user}/.oh-my-zsh/custom/themes/powerlevel10k";
+run_as_user "sed -i 's/robbyrussell/powerlevel10k\/powerlevel10k/' /home/${target_user}/.zshrc";
 
 
 SYNERGY_DEB=./synergy_1.11.0.rc2_amd64.deb
@@ -209,3 +209,4 @@ run_as_user "flatpak install androidstudio -y";
 
 
 apt dist-upgrade -y;
+chsh -s /bin/zsh
