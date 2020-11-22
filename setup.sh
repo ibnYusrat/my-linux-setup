@@ -137,6 +137,23 @@ printf "${YELLOW}Installing VIM${NC}\n";
 sleep $delay_after_message;
 apt install vim -y
 
+
+#Install z.lua
+printf "${YELLOW}Setting up z.lua${NC}\n";
+sleep $delay_after_message;
+apt install lua5.1 -y
+run_as_user "mkdir ~/scripts && cd ~/scripts";
+run_as_user "git clone --depth=1 https://github.com/skywind3000/z.lua";
+run_as_user "mv z.lua /home/${target_user}/.z-lua";
+run_as_user "eval '\$(lua /home/${target_user}/.z-lua/z.lua --init zsh)' >> /home/${target_user}/.zshrc";
+
+#Install Pop OS Splash Screen
+printf "${YELLOW}Setting up PopOS Splash Screen${NC}\n";
+sleep $delay_after_message;
+apt install plymouth-theme-pop-logo
+update-alternatives --set default.plymouth /usr/share/plymouth/themes/pop-logo/pop-logo.plymouth
+
+
 #Install GIMP
 printf "${YELLOW}Installing GIMP${NC}\n";
 sleep $delay_after_message;
@@ -210,3 +227,6 @@ run_as_user "flatpak install androidstudio -y";
 
 apt dist-upgrade -y;
 chsh -s /bin/zsh
+kernelstub -a splash
+kernelstub -v
+update-initramfs -u
