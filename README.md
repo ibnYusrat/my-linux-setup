@@ -11,7 +11,7 @@ When executed, it installs:
 * git, curl, nfs-common (used for network attached storage).
 * zsh (with `oh-my-zsh` and `powerlevel10k` theme)
 * lua 5.1 and z.lua (super fast directory navigation tool)
-* PopOS Splash Screen
+* PopOS Animated Splash Screen (Looks like this: https://www.reddit.com/r/pop_os/comments/jwn4se/psa_pop_os_boot_popup_logo/)
 * nautilus (with typeahead support)
 * openssh-server
 * nvm (node version manager) and latest LTS version of NodeJS and NPM
