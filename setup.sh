@@ -152,7 +152,8 @@ printf "${YELLOW}Setting up PopOS Splash Screen${NC}\n";
 sleep $delay_after_message;
 apt install plymouth-theme-pop-logo
 update-alternatives --set default.plymouth /usr/share/plymouth/themes/pop-logo/pop-logo.plymouth
-
+kernelstub -a splash
+kernelstub -v
 
 #Install GIMP
 printf "${YELLOW}Installing GIMP${NC}\n";
@@ -227,6 +228,4 @@ run_as_user "flatpak install androidstudio -y";
 
 apt dist-upgrade -y;
 chsh -s /bin/zsh
-kernelstub -a splash
-kernelstub -v
 update-initramfs -u

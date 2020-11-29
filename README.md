@@ -9,23 +9,29 @@ When executed, it installs:
 * synergy
 * *Completely removes thunderbird*
 * git, curl, nfs-common (used for network attached storage).
+* zsh (with `oh-my-zsh` and `powerlevel10k` theme)
+* lua 5.1 and z.lua (super fast directory navigation tool)
+* PopOS Animated Splash Screen (Looks like this: https://www.reddit.com/r/pop_os/comments/jwn4se/psa_pop_os_boot_popup_logo/)
 * nautilus (with typeahead support)
 * openssh-server
-* nvm (node version manager)
+* nvm (node version manager) and latest LTS version of NodeJS and NPM
 * zerotier-cli 
 * vim
-* GIMP
+* GIMP (flatpak)
 * lm-sensors
 * gnome-tweak-tool
 * docker
 * Chromium Browser
 * prerequisites of Gnome shell extensions
-* WebStorm (using flatpak)
-* Android Studio (using flatpak)
+* WebStorm (flatpak)
+* Android Studio (flatpak)
 * WhiteSur GTK+Icon theme.
 
 And finally upgrades all the packages in the system to the latest versions.
 
+To run the script, simply type `sudo -i` enter your password. Navigate to the directory where you cloned the repository and then run `./script.sh`.
+After the script runs you should run `chsh` in terminal and after entering your password, type: `/bin/zsh` to change shell from Bash to ZSH. Then restart the computer for the change to take effect. Once you restart and open terminal, you will be prompted to configure the `powerlevel0k` theme. Just follow the prompts and set according to your liking.
+
 Of course this exact list of softwares isn't probably what fit your needs, but you can fork this repo and use it as a template to adjust based on your own needs.
 
-Simply type `sudo -i` enter your password. And then run `./script.sh`
+
