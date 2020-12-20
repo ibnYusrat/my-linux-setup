@@ -158,7 +158,7 @@ kernelstub -v
 #Install GIMP
 printf "${YELLOW}Installing GIMP${NC}\n";
 sleep $delay_after_message;
-run_as_user "flatpak install org.gimp.GIMP -y"
+apt install gimp -y
 
 #lm-sensors
 printf "${YELLOW}Installing lm-sensors${NC}\n";
@@ -219,11 +219,11 @@ apt install gnome-shell-extensions -y
 apt install chrome-gnome-shell -y
 
 
-printf "${GREEN}Basic settings done, proceeding to install bigger softwares (Like WebStorm, Android Studio etc) using flatpak${NC}\n";
-sleep $delay_after_message;
+# printf "${GREEN}Basic settings done, proceeding to install bigger softwares (Like WebStorm, Android Studio etc) using flatpak${NC}\n";
+# sleep $delay_after_message;
 
-run_as_user "flatpak install webstorm -y";
-run_as_user "flatpak install androidstudio -y";
+# run_as_user "flatpak install webstorm -y";
+# run_as_user "flatpak install androidstudio -y";
 
 
 apt dist-upgrade -y;
