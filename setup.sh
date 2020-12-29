@@ -85,7 +85,7 @@ run_as_user "git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git /
 run_as_user "cat /home/${target_user}/.oh-my-zsh/templates/zshrc.zsh-template >> /home/${target_user}/.zshrc";
 run_as_user "git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /home/${target_user}/.oh-my-zsh/custom/themes/powerlevel10k";
 run_as_user "sed -i 's/robbyrussell/powerlevel10k\/powerlevel10k/' /home/${target_user}/.zshrc";
-
+run_as_user "echo 'bindkey -v' >> /home/${target_user}/.zshrc";
 
 SYNERGY_DEB=./synergy_1.11.0.rc2_amd64.deb
 if [ -f "$SYNERGY_DEB" ]; then
