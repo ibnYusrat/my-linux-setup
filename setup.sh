@@ -108,6 +108,7 @@ sleep $delay_after_message;
 apt install git -y
 apt install curl -y
 apt install nfs-common -y
+apt install preload -y
 
 printf "${YELLOW}Installing stacer.. ${NC}\n";
 sleep $delay_after_message;
