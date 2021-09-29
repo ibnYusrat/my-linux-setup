@@ -170,7 +170,7 @@ sensors-detect --auto
 # Gnome tweak tool
 printf "${YELLOW}Installing gnome-tweak-tool${NC}\n";
 sleep $delay_after_message;
-apt install gnome-tweak-tool -y;
+apt install gnome-tweaks -y;
 
 #Docker
 printf "${YELLOW}Installing Docker ${NC}\n";
